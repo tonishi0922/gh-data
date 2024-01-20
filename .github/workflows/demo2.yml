@@ -19,3 +19,24 @@ jobs:
         run: npm run lint
       - name: Run test
         run: npm run test
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    outputs:
+      css-fie: ${{steps.get-css.outputs.filename}}
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v2
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm ci
+      - name: Run build
+        run: npm run build
+      - name: Get output css
+        id: get-css
+        run: find dist/assets/*.css -type f -execdir echo 'filename={}' >> '$GITHUB_OUTPUT' ';'
+      - name: debug
+        run: echo $filename
