@@ -23,7 +23,7 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     outputs:
-      css-fie: ${{steps.get-css.outputs.filename}}
+      css-file: ${{steps.get-css.outputs.filename}}
     steps:
       - name: Get Code
         uses: actions/checkout@v2
@@ -39,4 +39,4 @@ jobs:
         id: get-css
         run: find dist/assets/*.css -type f -execdir echo 'filename={}' >> '$GITHUB_OUTPUT' ';'
       - name: debug
-        run: echo $filename
+        run: echo $css-file
