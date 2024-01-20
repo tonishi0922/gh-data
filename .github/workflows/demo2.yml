@@ -39,4 +39,4 @@ jobs:
         id: get-css
         run: find dist/assets/*.css -type f -execdir echo 'filename={}' >> '$GITHUB_OUTPUT' ';'
       - name: debug
-        run: echo $css-file
+        run: echo $filename
