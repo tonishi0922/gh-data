@@ -38,5 +38,22 @@ jobs:
       - name: Get output css
         id: get-css
         run: find dist/assets/*.css -type f -execdir echo 'filename={}' >> '$GITHUB_OUTPUT' ';'
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-file
+          path: |
+            dist
+            package.json
       - name: debug
-        run: echo $filename
+        run: echo $GITHUB_OUTPUT
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download a single artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: dist-file
+      - name: Output files
+        run: ls
