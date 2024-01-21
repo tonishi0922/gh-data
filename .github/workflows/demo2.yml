@@ -37,7 +37,7 @@ jobs:
         run: npm run build
       - name: Get output css
         id: publish
-        run: find dist/assets/*.css -type f -execdir echo 'filename={}' >> '$GITHUB_OUTPUT' ';'
+        run: find dist/assets/*.css -type f -execdir echo 'filename={}' >> $GITHUB_OUTPUT ';'
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -47,6 +47,7 @@ jobs:
             package.json
       - name: debug
         run: echo $GITHUB_OUTPUT
+      - run: cat $GITHUB_OUTPUT
   deploy:
     needs: build
     runs-on: ubuntu-latest
