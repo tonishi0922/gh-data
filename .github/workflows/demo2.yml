@@ -57,3 +57,5 @@ jobs:
           name: dist-file
       - name: Output files
         run: ls
+      - name: Output css
+        run: echo ${{needs.build.outputs.css-file}}
